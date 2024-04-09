@@ -15,18 +15,22 @@
  */
 class Kitchen {
 	/**
-	 * Stock of food to prepare
+	 * Stock of food of A
 	 */
-    Stock stockInput = new Stock("input", 16);
+    Stock stockA = new Stock("a", 16);
     /**
-     * Stock of final (prepared) food
+     * Stock of food of B
      */
-    Stock stockOutput = new Stock("output", 0);
+    Stock stockB = new Stock("b", 0);
+    /**
+     * Stock of food of C
+     */
+    Stock stockC = new Stock("c", 0);
     /**
      * Stoves for the preparations
      */
-    Stove stove1 = new Stove(stockInput, stockOutput, 8, "Thread 1");
-    Stove stove2 = new Stove(stockInput, stockOutput, 8, "Thread 2");
+    Stove stove1 = new Stove(stockA, stockC, 16, "Thread 1");
+    Stove stove2 = new Stove(stockC, stockB, 16, "Thread 2");
     
     /**
      * Main entry point: proceed to operate the kitchen work of preparation
@@ -36,7 +40,7 @@ class Kitchen {
     	long initialTime = System.currentTimeMillis();
    		stove1.start();
    		stove2.start();
-           //q1 must join the threads to the main thread or else program terminate before computation is done
+       //q1 must join the threads to the main thread or else program terminate before computation is done
         try
         {
             stove1.join();
@@ -46,8 +50,10 @@ class Kitchen {
         {
             e.printStackTrace();
         }
-   		stockInput.display();
-   		stockOutput.display();
+        stockA.display();
+        stockB.display();
+        stockC.display();
+
    		System.out.println("... done ("+((double)(System.currentTimeMillis() - initialTime)/1000)+" second(s))");
     }
     

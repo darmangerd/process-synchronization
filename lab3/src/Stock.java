@@ -39,7 +39,9 @@ class Stock {
      * Adds food
      */
     public void put() {
+        //q5 : notify the threads that are waiting for food
         nbFood++;
+        notify();
         // q3: adapt print to display the name of the stock
         System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
@@ -47,6 +49,14 @@ class Stock {
      * Removes (takes) food
      */
     public void get() {
+        //q5 : we need to check if there is food before taking it (if not wait)
+        while (nbFood == 0) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         nbFood--;
         // q3: adapt print to display the name of the stock
         System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
