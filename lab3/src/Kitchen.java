@@ -25,8 +25,8 @@ class Kitchen {
     /**
      * Stoves for the preparations
      */
-    Stove stove1 = new Stove(stockInput, stockOutput, 8);
-    Stove stove2 = new Stove(stockInput, stockOutput, 8);
+    Stove stove1 = new Stove(stockInput, stockOutput, 8, "Thread 1");
+    Stove stove2 = new Stove(stockInput, stockOutput, 8, "Thread 2");
     
     /**
      * Main entry point: proceed to operate the kitchen work of preparation

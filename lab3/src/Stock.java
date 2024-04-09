@@ -40,21 +40,26 @@ class Stock {
      */
     public void put() {
         nbFood++;
+        // q3: adapt print to display the name of the stock
+        System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
-
     /**
      * Removes (takes) food
      */
     public void get() {
         nbFood--;
+        // q3: adapt print to display the name of the stock
+        System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
+
     }
 
     /**
      * Display the stock status
      */
     public void display() {
-        //q3 : adapt print to display the name of the stock
-        System.out.println("The stock " + Thread.currentThread().getName() + " contains " + nbFood + " food.");
+        //q3 : adapt print to display the name of the thread
+        // print the thread name
+        System.out.println("The stock " + name + " contains " + nbFood + " food.");
     }
 
     /** 

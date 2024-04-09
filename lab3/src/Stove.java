@@ -35,7 +35,8 @@ class Stove extends Thread {
      * @param B Destination stock
      * @param nbPrepare How many preparations should be made
      */
-    public Stove(Stock A, Stock B, int nbPrepare) {
+    public Stove(Stock A, Stock B, int nbPrepare, String name) {
+        super(name);
         this.A = A;
         this.B = B;
         this.nbPrepare = nbPrepare;
@@ -74,7 +75,7 @@ class Stove extends Thread {
     static public void main(String[] args) {
         Stock stockInput = new Stock("input", 4);
         Stock stockOutput = new Stock("output", 1);
-        new Stove(stockInput, stockOutput, 2).run();
+        new Stove(stockInput, stockOutput, 2, "test").run();
         stockInput.display();
         stockOutput.display();
     }
