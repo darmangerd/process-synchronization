@@ -41,7 +41,7 @@ class Stock {
     public void put() {
         //q5 : notify the threads that are waiting for food
         nbFood++;
-        notify();
+        notifyAll();
         // q3: adapt print to display the name of the stock
         System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
