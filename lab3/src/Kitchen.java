@@ -25,10 +25,12 @@ class Kitchen {
     /**
      * Stock of food of C
      */
+    // q4 : we need to create a third stock for intermediate storage
     Stock stockC = new Stock("c", 0);
     /**
      * Stoves for the preparations
      */
+    // q6 : give half of the food to the third stove
     Stove stove1 = new Stove(stockA, stockC, 16, "Thread 1");
     Stove stove2 = new Stove(stockC, stockB, 8, "Thread 2");
     Stove stove3 = new Stove(stockC, stockB, 8, "Thread 3");
@@ -40,15 +42,19 @@ class Kitchen {
     public void work() {
     	System.out.println("Starting kitchen work ...");
     	long initialTime = System.currentTimeMillis();
-        stove1.start(); // QUESTION : fix problem ? by not launch stove1 last ???
+
+        // q6 : start stove last
         stove2.start();
         stove3.start();
-        //q1 must join the threads to the main thread or else program terminate before computation is done
+        stove1.start();
+
+        //q1 : must join the threads to the main thread or else program terminate before computation is done
         try
         {
             stove1.join();
             stove2.join();
             stove3.join();
+
         }
         catch (InterruptedException e)
         {

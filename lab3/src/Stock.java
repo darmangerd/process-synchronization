@@ -41,25 +41,25 @@ class Stock {
     public void put() {
         //q5 : notify the threads that are waiting for food
         nbFood++;
-        notifyAll();
+        notify();
         // q3: adapt print to display the name of the stock
-        System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
+        System.out.println("put - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
     /**
      * Removes (takes) food
      */
     public void get() {
         //q5 : we need to check if there is food before taking it (if not wait)
-        while (nbFood == 0) {
+        if (nbFood == 0) {
             try {
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         nbFood--;
         // q3: adapt print to display the name of the stock
-        System.out.println(Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
+        System.out.println("get - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
 
     }
 
@@ -68,7 +68,6 @@ class Stock {
      */
     public void display() {
         //q3 : adapt print to display the name of the thread
-        // print the thread name
         System.out.println("The stock " + name + " contains " + nbFood + " food.");
     }
 
