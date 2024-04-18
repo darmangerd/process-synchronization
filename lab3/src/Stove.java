@@ -49,12 +49,14 @@ class Stove extends Thread {
         // q2 : we need to synchronize the access to the stocks to avoid errors
         synchronized (A) {
             A.get();
+            A.display();
         }
         // q2-q7 : commented out the sleep to avoid the too much waiting time
         // try { Thread.sleep(64); } catch(InterruptedException e) {}
 
         synchronized (B) {
                 B.put();
+                B.display();
             }
         }
 
@@ -76,8 +78,8 @@ class Stove extends Thread {
      * @param args not used
      */
     static public void main(String[] args) {
-        Stock stockInput = new Stock("input", 4);
-        Stock stockOutput = new Stock("output", 1);
+        Stock stockInput = new Stock("input", 4, 4);
+        Stock stockOutput = new Stock("output", 1, 4);
         new Stove(stockInput, stockOutput, 2, "test").run();
         stockInput.display();
         stockOutput.display();

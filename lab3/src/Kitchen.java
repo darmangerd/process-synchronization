@@ -17,24 +17,26 @@ class Kitchen {
 	/**
 	 * Stock of food of A
 	 */
-    Stock stockA = new Stock("a", 16);
+    //q7 : use 10000 food
+    Stock stockA = new Stock("a", 10000, 10000);
     /**
      * Stock of food of B
      */
-    Stock stockB = new Stock("b", 0);
+    Stock stockB = new Stock("b", 0, 10000);
     /**
      * Stock of food of C
      */
     // q4 : we need to create a third stock for intermediate storage
-    Stock stockC = new Stock("c", 0);
+    Stock stockC = new Stock("c", 0, 200);
     /**
      * Stoves for the preparations
      */
     // q6 : give half of the food to the third stove
-    Stove stove1 = new Stove(stockA, stockC, 16, "Thread 1");
-    Stove stove2 = new Stove(stockC, stockB, 8, "Thread 2");
-    Stove stove3 = new Stove(stockC, stockB, 8, "Thread 3");
-
+    Stove stove1 = new Stove(stockA, stockC, 5000, "Thread 1");
+    Stove stove2 = new Stove(stockC, stockB, 5000, "Thread 2");
+    Stove stove3 = new Stove(stockC, stockB, 5000, "Thread 3");
+    // q7 : double the number of preparations for the first stove
+    Stove stove1_copy = new Stove(stockA, stockC, 5000, "Thread 4");
 
     /**
      * Main entry point: proceed to operate the kitchen work of preparation
@@ -47,6 +49,8 @@ class Kitchen {
         stove2.start();
         stove3.start();
         stove1.start();
+        // q7 : double stove1
+        stove1_copy.start();
 
         //q1 : must join the threads to the main thread or else program terminate before computation is done
         try
@@ -54,6 +58,8 @@ class Kitchen {
             stove1.join();
             stove2.join();
             stove3.join();
+            // q7 : double stove1
+            stove1_copy.join();
 
         }
         catch (InterruptedException e)

@@ -26,41 +26,56 @@ class Stock {
     private String name;
 
     /**
+     * Maximum amount of food
+     */
+    // q7 : we need to add a maximum amount of food
+    private int maxFood;
+
+    /**
      * Creates a new Stock object
      * @param name its name
      * @param nbFood initial number of food
      */
-    public Stock(String name, int nbFood) {
+    public Stock(String name, int nbFood, int maxFood) {
         this.nbFood = nbFood;
-        this.name = name;		
+        this.name = name;
+        this.maxFood = maxFood;
     }
 
     /**
      * Adds food
      */
     public void put() {
-        //q5 : notify the threads that are waiting for food
-        nbFood++;
-        notify();
-        // q3: adapt print to display the name of the stock
-        System.out.println("put - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
-    }
-    /**
-     * Removes (takes) food
-     */
-    public void get() {
-        //q5 : we need to check if there is food before taking it (if not wait)
-        if (nbFood == 0) {
+        //q7 : we need to check if there is space before putting food (if not wait)
+        while (this.nbFood >= this.maxFood) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        nbFood--;
+        //q5 : notify the threads that are waiting for food
+        this.nbFood++;
+        notifyAll();
         // q3: adapt print to display the name of the stock
-        System.out.println("get - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
-
+        //System.out.println("put - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
+    }
+    /**
+     * Removes (takes) food
+     */
+    public void get() {
+        //q5 : we need to check if there is food before taking it (if not wait)
+        while (this.nbFood <= 0) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.nbFood--;
+        notifyAll();
+        // q3: adapt print to display the name of the stock
+        //System.out.println("get - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
 
     /**
@@ -68,7 +83,7 @@ class Stock {
      */
     public void display() {
         //q3 : adapt print to display the name of the thread
-        System.out.println("The stock " + name + " contains " + nbFood + " food.");
+        System.out.println(Thread.currentThread().getName() + ": The stock " + name + " contains " + nbFood + " food.");
     }
 
     /** 
@@ -76,7 +91,7 @@ class Stock {
      * @param args not used
      */
     static public void main(String[] args) {
-        Stock stock = new Stock("test", 5);
+        Stock stock = new Stock("test", 5, 10);
         stock.put();
         stock.display();
         stock.get();
