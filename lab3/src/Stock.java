@@ -57,9 +57,11 @@ class Stock {
         //q5 : notify the threads that are waiting for food
         this.nbFood++;
         notifyAll();
+
         // q3: adapt print to display the name of the stock
-        //System.out.println("put - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
+        // System.out.println("put - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
+
     /**
      * Removes (takes) food
      */
@@ -74,8 +76,9 @@ class Stock {
         }
         this.nbFood--;
         notifyAll();
+
         // q3: adapt print to display the name of the stock
-        //System.out.println("get - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
+        // System.out.println("get - " + Thread.currentThread().getName() + ": stock " + name + " contains " + nbFood + " food.");
     }
 
     /**

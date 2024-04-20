@@ -14,6 +14,8 @@
  * from Stock A, waits for 64 ms, and puts an element to stock B. The work() method
  * runs nbPrepare times the prepare() method, nbPrepare being set by the constructor.
  */
+
+// q1 : we need to extend the Thread
 class Stove extends Thread {
 
 	/**
@@ -45,6 +47,7 @@ class Stove extends Thread {
     /**
      * Proceeds to a single preparation from food of Stock A to food of Stock B
      */
+    // q3 : we see that scheduler select the thread in a "random" way
     public void prepare() {
         // q2 : we need to synchronize the access to the stocks to avoid errors
         synchronized (A) {

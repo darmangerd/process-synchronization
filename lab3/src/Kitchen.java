@@ -27,6 +27,8 @@ class Kitchen {
      * Stock of food of C
      */
     // q4 : we need to create a third stock for intermediate storage
+    // q4 - observe the trace : the problem is that the stove2 tries to take food
+            // from stockC before the stove1 has put food in it
     Stock stockC = new Stock("c", 0, 200);
     /**
      * Stoves for the preparations
@@ -56,11 +58,11 @@ class Kitchen {
         try
         {
             stove1.join();
-            stove2.join();
-            stove3.join();
             // q7 : double stove1
             stove1_copy.join();
 
+            stove2.join();
+            stove3.join();
         }
         catch (InterruptedException e)
         {
